@@ -17,12 +17,12 @@ PhysioTrack is a gesture-based physiotherapy platform designed to help patients 
 ✅ Admin dashboard to manage exercises and patients
 
 🛠️ Tech Stack
-Area	Technologies Used
-Frontend	React.js, Tailwind CSS, Bootstrap
-Backend	Node.js, Express.js
-Database	MongoDB (with Mongoose)
-Pose Detection	MediaPipe Pose
-Authentication	JWT (JSON Web Tokens)
+Area           	Technologies Used
+Frontend	       React.js, Tailwind CSS, Bootstrap
+Backend	        Node.js, Express.js
+Database       	MongoDB (with Mongoose)
+Pose Detection	 MediaPipe Pose
+Authentication	 JWT (JSON Web Tokens)
 
 🖥️ Setup Instructions
 ✅ Prerequisites:
@@ -32,11 +32,11 @@ MongoDB running locally or via MongoDB Atlas
 
 VS Code or any preferred code editor
 
-🔧 1. Clone the Repository
+1. Clone the Repository
 bash
 git clone https://github.com/asthanit1205/CodeCatalysts_CIH_2.0.git
 cd CodeCatalysts_CIH_2.0
-⚙️ 2. Setup Backend
+2. Setup Backend
 bash
 cd physio-tracker-backend
 npm install
@@ -48,6 +48,7 @@ MONGO_URI=mongodb://localhost:27017/physiodb
 Run the backend server:
 bash
 npm node app.js
+
 💻 3. Setup Frontend
 bash
 cd ../physio-tracker-frontend
@@ -57,11 +58,12 @@ Visit the frontend in your browser:
 👉 http://localhost:5173
 
 👥 Team – CodeCatalysts
-Name	Role
-Astha Nitnaware	Full-Stack Developer, MediaPipe Integration
-Pranali Nikose	Backend API Developer, MongoDB Integration
-Iqra Shaikh	Frontend Developer, Styling & Routing
-Renuka Motghare	Project Documentation, UI/UX Review
+Name	                 Role
+Astha Nitnaware      	Full-Stack Developer, MediaPipe Integration
+Pranali Nikose	       Backend API Developer, MongoDB Integration
+Iqra Shaikh	          Frontend Developer, Styling & Routing
+Renuka Motghare	      Frontend Developer
+
 
 📧 Contact:
-Astha Nitnaware – astha.nitnaware@gmail.com
+Astha Nitnaware – asthanitnaware546@gmail.com
