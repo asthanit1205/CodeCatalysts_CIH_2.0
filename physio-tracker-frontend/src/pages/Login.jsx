@@ -1,9 +1,12 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import welcomeImage from './welcomeimage.png';
 
 const Login = () => {
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [role, setRole] = useState('patient');
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -11,60 +14,149 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/users/login', { email });
+      const res = await axios.post('http://localhost:5000/api/users/login', {
+        email,
+        password,
+      });
+
       const user = res.data.user;
 
-      if (user.role !== role) {
-        setError(`You are not registered as a ${role}.`);
-        return;
-      }
+      // if (user.role !== role && !(user.role === 'physio' && role === 'physiotherapist')) {
+      //   setError(`You are not registered as a ${role}.`);
+      //   return;
+      // }
 
-      // Store user in localStorage or context if needed
+      if (user.role !== role) {
+  setError(`You are not registered as a ${role}.`);
+  return;
+}
+
       localStorage.setItem('user', JSON.stringify(user));
 
-      // Navigate to appropriate dashboard
       if (role === 'patient') {
         navigate('/patient-dashboard');
       } else {
         navigate('/physio-dashboard');
       }
     } catch (err) {
-      setError('Login failed. Please check your email.');
+      setError('Login failed. Please check your email and password.');
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-      <h2 className="text-2xl font-bold mb-4">Login</h2>
-      <form onSubmit={handleLogin} className="bg-white p-6 rounded shadow-md w-80">
-        <div className="mb-4">
-          <label className="block mb-1">Email</label>
+    <div style={styles.body}>
+      <div style={styles.container}>
+        <img src={welcomeImage} alt="Welcome" style={styles.image} />
+        <h1 style={styles.title}>Welcome to PhysioTrack</h1>
+        <p style={styles.subtitle}>Your journey to better health starts here.</p>
+
+        <form onSubmit={handleLogin}>
           <input
             type="email"
+            placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full border px-3 py-2 rounded"
             required
+            style={styles.input}
           />
-        </div>
-        <div className="mb-4">
-          <label className="block mb-1">Role</label>
+          <input
+            type="password"
+            placeholder="Enter your password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            style={styles.input}
+          />
+          <label style={styles.label}>Role</label>
           <select
             value={role}
             onChange={(e) => setRole(e.target.value)}
-            className="w-full border px-3 py-2 rounded"
+            style={styles.input}
           >
             <option value="patient">Patient</option>
             <option value="physiotherapist">Physiotherapist</option>
           </select>
-        </div>
-        {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
-        <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
-          Login
-        </button>
-      </form>
+
+          {error && <p style={styles.error}>{error}</p>}
+
+          <button type="submit" style={styles.button}>Login</button>
+        </form>
+      </div>
     </div>
   );
 };
 
 export default Login;
+
+const styles = {
+  body: {
+    fontFamily: "'Poppins', sans-serif",
+    background: 'linear-gradient(to right, #e0f7fa, #fce4ec)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: '100vh',
+  },
+  container: {
+    backgroundColor: 'white',
+    borderRadius: '16px',
+    boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)',
+    padding: '40px',
+    maxWidth: '450px',
+    width: '90%',
+    textAlign: 'center',
+  },
+  image: {
+    width: '120px',
+    height: '120px',
+    borderRadius: '50%',
+    objectFit: 'cover',
+    marginBottom: '20px',
+    border: '3px solid #00796b',
+  },
+  title: {
+    fontSize: '1.8rem',
+    color: '#00796b',
+    marginBottom: '8px',
+  },
+  subtitle: {
+    color: '#555',
+    fontSize: '0.95rem',
+    marginBottom: '20px',
+  },
+  input: {
+    width: '100%',
+    padding: '12px',
+    margin: '8px 0',
+    borderRadius: '8px',
+    border: '1px solid #ccc',
+    fontSize: '1rem',
+  },
+  label: {
+    textAlign: 'left',
+    display: 'block',
+    fontSize: '0.9rem',
+    marginTop: '10px',
+    color: '#444',
+  },
+  button: {
+    width: '100%',
+    padding: '12px',
+    margin: '8px 0',
+    backgroundColor: '#00796b',
+    color: 'white',
+    border: 'none',
+    borderRadius: '8px',
+    fontWeight: 'bold',
+    fontSize: '1rem',
+    cursor: 'pointer',
+    transition: 'background-color 0.3s ease',
+  },
+  error: {
+    color: 'red',
+    marginTop: '10px',
+    fontSize: '0.85rem',
+    fontWeight: 'bold',
+  },
+};
+
